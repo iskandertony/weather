@@ -1,0 +1,13 @@
+.main {
+  background: #D69E36;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  .section {
+    display: flex;
+    gap: 20px;
+  }
+  .img {
+    width: 321px;
+  }
+}
