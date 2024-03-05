@@ -1,0 +1,59 @@
+.location {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .vector {
+      height: 21px;
+    }
+  }
+
+  .name {
+    font-family: "Inter", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #FFFFFF;
+  }
+
+  .cloud {
+    font-family: "Inter", sans-serif;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 58px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #FFFFFF;
+  }
+
+  .title {
+    font-family: "Inter", sans-serif;
+
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 77px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #FFFFFF;
+  }
+
+  .text {
+    font-family: "Inter", sans-serif;
+
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    color: #FFFFFF;
+  }
+}

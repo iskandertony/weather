@@ -1,0 +1,46 @@
+.activity {
+  padding: 40px 35px;
+  background: #DEAB4D;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 884px;
+
+  .content {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 10px;
+
+    .activity_img {
+      max-width: 178.85px;
+      height: 108px;
+      border-radius: 10px
+
+    }
+
+    .text {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 15px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #2B261D;
+
+    }
+
+  }
+  .title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+
+  .icon {
+    height: 19px;
+  }
+}

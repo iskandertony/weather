@@ -1,0 +1,18 @@
+.manu {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  padding: 20px;
+  border-radius: 40px;
+  background: #DEAB4D;
+
+  .text {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
+  }
+}
