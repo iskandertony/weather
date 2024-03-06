@@ -1,0 +1,26 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+  background: #DEAB4D;
+  border-radius: 40px;
+
+  @media (max-width: 430px) {
+    padding: 0;
+    background: unset;
+    align-items: center;
+    border-radius: unset;
+  }
+
+  .time {
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
+
+  }
+}

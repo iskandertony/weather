@@ -7,16 +7,16 @@ import Info from "./components/info";
 function App() {
   return (
     <div className="main container">
-      <div className="flex justify-s alignC">
+      <div className="flower">
         <Location />
-        <div>
+        <div className="web">
           <img src={cloud} alt="" className="img" />
         </div>
       </div>
 
       <div className="section">
         <Menu />
-        <div>
+        <div className="flex flex-column gap-20">
           <Activity />
           <Statistics />
         </div>

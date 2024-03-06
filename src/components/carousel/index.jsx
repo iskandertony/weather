@@ -1,37 +1,30 @@
 import React from 'react';
-import { Carousel, Button } from 'antd';
 import moment from 'moment';
+import "./style.scss";
+import WeatherIcon from "../icon-weather";
+import {weatherStoreWeek} from "../../store/weather-week";
+import {observer} from "mobx-react";
 
-const WeekCarousel = ({ weatherData }) => {
-    const carouselRef = React.useRef(null);
+const WeekDays = observer(({ weatherData }) => {
+    const { uniqueDates } = weatherStoreWeek;
 
-    const goNext = () => {
-        carouselRef.current.next();
+    const getIconForDate = (date) => {
+        const weatherItem = weatherData.list.find(item => moment(item.dt_txt).format('YYYY-MM-DD') === date);
+        return weatherItem ? weatherItem.weather[0].icon : undefined;
     };
-
-    const goPrev = () => {
-        carouselRef.current.prev();
-    };
-
-    // Извлекаем уникальные даты из данных погоды
-    const dates = weatherData.list.map(entry =>
-        moment(entry.dt_txt).format('YYYY-MM-DD')
-    );
-    const uniqueDates = [...new Set(dates)];
 
     return (
-        <div>
-            <Button onClick={goPrev}>&lt;</Button>
-            <Carousel ref={carouselRef} dots={false}>
-                {uniqueDates.map(date => (
-                    <div key={date}>
-                        <h3>{moment(date).format('dddd, MMMM Do')}</h3>
-                    </div>
-                ))}
-            </Carousel>
-            <Button onClick={goNext}>&gt;</Button>
+        <div className="vertical-calendar">
+            {uniqueDates?.map(date => (
+                <div key={date}
+                     className={`date-item ${date === weatherStoreWeek.selectedDate ? 'active' : ''}`}
+                     onClick={() => weatherStoreWeek.setSelectedDate(date)}>
+                    <div className={`title ${date === weatherStoreWeek.selectedDate ? 'active' : ''}`}>{moment(date).format('ddd').toUpperCase()}</div>
+                    <WeatherIcon date={date} weatherData={weatherData} />
+                </div>
+            ))}
         </div>
     );
-};
+});
 
-export default WeekCarousel;
+export default WeekDays;

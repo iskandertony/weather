@@ -1,11 +1,15 @@
 .activity {
-  padding: 40px 35px;
+  padding: 40px 25px;
   background: #DEAB4D;
   border-radius: 40px;
   display: flex;
   flex-direction: column;
   gap: 40px;
   max-width: 884px;
+
+  @media (max-width: 430px) {
+    display: none;
+  }
 
   .content {
     display: flex;

@@ -6,6 +6,11 @@
   border-radius: 40px;
   background: #DEAB4D;
 
+  @media (max-width: 430px) {
+    display: none;
+  }
+
+
   .text {
     font-family: "Inter", sans-serif;
     font-size: 14px;
