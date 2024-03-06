@@ -7,7 +7,7 @@ class WeatherStoreWeek {
     isLoading = false;
     error = null;
     selectedDate = null;
-    city = null; // Новое свойство для хранения информации о городе
+    city = null;
 
 
     constructor() {
@@ -20,12 +20,8 @@ class WeatherStoreWeek {
 
     get uniqueDates() {
         if (!this.weatherData || !this.weatherData.list) return [];
-
-        // Формирование массива уникальных дат в формате строки 'YYYY-MM-DD'
         const dates = this.weatherData.list.map(item => moment(item.dt_txt).format('YYYY-MM-DD'));
         const uniqueDates = Array.from(new Set(dates));
-
-        // Возврат первых пяти уникальных дат
         return uniqueDates.slice(0, 5);
     }
 
@@ -62,6 +58,31 @@ class WeatherStoreWeek {
             this.isLoading = false;
         }
     };
+
+    fetchWeatherDataByCityName = async (cityName, apiKey) => {
+        this.isLoading = true;
+        this.error = null;
+        try {
+            const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast`, {
+                params: {
+                    q: cityName,
+                    appid: apiKey,
+                    units: "metric"
+                }
+            });
+            this.weatherData = response.data;
+            this.city = response.data.city;
+            if (this.weatherData.list.length > 0) {
+                this.selectedDate = this.uniqueDates[0];
+            }
+        } catch (error) {
+            this.error = error.response && error.response.data.message ? error.response.data.message : "Ошибка при загрузке данных о погоде.";
+            console.error("Ошибка при запросе к OpenWeatherMap:", error);
+        } finally {
+            this.isLoading = false;
+        }
+    };
+
 }
 
 export const weatherStoreWeek = new WeatherStoreWeek();
