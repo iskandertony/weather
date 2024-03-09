@@ -1,0 +1,9 @@
+.icon_single {
+  image-rendering: pixelated;
+  width: 321px;
+
+  @media (max-width: 430px) {
+    width: 200px;
+
+  }
+}

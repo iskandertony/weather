@@ -23,7 +23,6 @@ function Icon(props) {
         className,
         onClick,
         onMouseCustom,
-        disabled,
     } = props;
 
     const [over, setOver] = useState(false);
@@ -43,7 +42,6 @@ function Icon(props) {
             onMouseOut={() => setOver(false)}
             style={style}
             onClick={onClick}
-            disabled={disabled}
         >
             <img
                 width={width}

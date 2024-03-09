@@ -4,13 +4,14 @@ import Menu from "./components/menu";
 import Activity from "./components/activities";
 import Statistics from "./components/statistics";
 import Info from "./components/info";
+import WeatherIconSingle from "./components/icon-weather-single";
 function App() {
   return (
     <div className="main container">
       <div className="flower">
         <Location />
         <div className="web">
-          <img src={cloud} alt="" className="img" />
+            <WeatherIconSingle />
         </div>
       </div>
 

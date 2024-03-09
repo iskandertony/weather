@@ -5,6 +5,7 @@ import Icon from "../icon";
 import { weatherStoreWeek } from "../../store/weather-week";
 import cloud from "../../assets/img/cloud.png";
 import "./style.scss";
+import WeatherIconSingle from "../icon-weather-single";
 
 const Location = observer(() => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -15,18 +16,17 @@ const Location = observer(() => {
     fetchWeatherDataByCityName,
     city,
   } = weatherStoreWeek;
-  const apiKey = "1ea24926b6e0dbff93f7fbc24e2fb1cf";
-
   const showModal = () => {
     setIsModalVisible(true);
   };
 
   const handleOk = () => {
     setIsModalVisible(false);
-    if (cityName.trim()) {
-      fetchWeatherDataByCityName(cityName.trim(), apiKey);
+    const name = cityName.trim()
+    if (name) {
+      fetchWeatherDataByCityName(name);
     } else {
-      alert("Please enter a valid city name");
+      alert("Please enter city name");
     }
   };
 
@@ -37,6 +37,7 @@ const Location = observer(() => {
   const handleCityNameChange = (e) => {
     setCityName(e.target.value);
   };
+  console.log("city", city?.name)
 
   return (
     <div className="location">
@@ -51,7 +52,7 @@ const Location = observer(() => {
             ? selectedWeatherDetails.weather[0].description
             : "Cloudy"}
         </div>
-        <img src={cloud} alt="" className="img mobile" />
+        <WeatherIconSingle className="mobile"  />
       </div>
 
       <div>
