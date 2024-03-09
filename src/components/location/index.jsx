@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
-import { Modal, Input } from "antd";
+import {Modal, Input, Button} from "antd";
 import Icon from "../icon";
 import { weatherStoreWeek } from "../../store/weather-week";
-import cloud from "../../assets/img/cloud.png";
-import "./style.scss";
 import WeatherIconSingle from "../icon-weather-single";
+import "./style.scss";
 
 const Location = observer(() => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -21,12 +20,11 @@ const Location = observer(() => {
   };
 
   const handleOk = () => {
-    setIsModalVisible(false);
-    const name = cityName.trim()
-    if (name) {
-      fetchWeatherDataByCityName(name);
-    } else {
-      alert("Please enter city name");
+    const trimmedCityName = cityName.trim();
+    if (trimmedCityName) {
+      fetchWeatherDataByCityName(trimmedCityName);
+      setIsModalVisible(false);
+      setCityName("");
     }
   };
 
@@ -41,8 +39,8 @@ const Location = observer(() => {
 
   return (
     <div className="location">
-      <div className="content" onClick={showModal}>
-        <div className="flex gap-10 alignC nav">
+      <div className="content">
+        <div className="flex gap-10 alignC nav" onClick={showModal}>
           <Icon name="location" />
           <div className="name">{city?.name || "Enter City"}</div>
           <Icon name="vector" className="vector" />
@@ -78,6 +76,19 @@ const Location = observer(() => {
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button
+              key="submit"
+              type="primary"
+              onClick={handleOk}
+              disabled={!cityName.trim()} // Делаем кнопку неактивной, если имя города пустое
+          >
+            OK
+          </Button>,
+        ]}
       >
         <Input
           placeholder="City name"

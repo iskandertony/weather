@@ -38,7 +38,7 @@ class WeatherStoreWeek {
     });
   }
 
-  fetchWeatherDataWeek = async (lat, lon, apiKey) => {
+  fetchWeatherDataWeek = async (lat, lon) => {
     this.isLoading = true;
     this.error = null;
 

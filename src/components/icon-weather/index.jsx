@@ -17,7 +17,7 @@ const WeatherIcon = ({ weatherData, date }) => {
   return iconUrl ? (
     <img src={iconUrl} alt="Weather icon" />
   ) : (
-    <div>No icon available</div>
+    <div className="title">No icon available</div>
   );
 };
 
