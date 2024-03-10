@@ -1,17 +1,17 @@
-import cloud from "./assets/img/cloud.png";
 import Location from "./components/location";
 import Menu from "./components/menu";
 import Activity from "./components/activities";
-import Statistics from "./components/statistics";
 import Info from "./components/info";
 import WeatherIconSingle from "./components/icon-weather-single";
+import TemperatureChart from "./components/chart";
+
 function App() {
   return (
     <div className="main container">
       <div className="flower">
         <Location />
         <div className="web">
-            <WeatherIconSingle />
+          <WeatherIconSingle />
         </div>
       </div>
 
@@ -19,7 +19,8 @@ function App() {
         <Menu />
         <div className="flex flex-column gap-20">
           <Activity />
-          <Statistics />
+          {/*<Statistics />*/}
+          <TemperatureChart />
         </div>
         <Info />
       </div>
