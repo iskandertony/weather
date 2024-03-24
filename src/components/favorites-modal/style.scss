@@ -1,0 +1,24 @@
+.favorite-city-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  .city-name {
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #1890ff; // или другой цвет по вашему выбору
+    }
+  }
+
+  .city-delete-icon {
+    color: red;
+    margin-left: 10px;
+    cursor: pointer;
+
+    &:hover {
+      color: darkred; // или другой цвет для эффекта наведения
+    }
+  }
+}

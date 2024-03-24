@@ -3,7 +3,7 @@ import Menu from "./components/menu";
 import Activity from "./components/activities";
 import Info from "./components/info";
 import WeatherIconSingle from "./components/icon-weather-single";
-import TemperatureChart from "./components/chart";
+import Statistics from "./components/statistics";
 
 function App() {
   return (
@@ -19,8 +19,7 @@ function App() {
         <Menu />
         <div className="flex flex-column gap-20">
           <Activity />
-          {/*<Statistics />*/}
-          <TemperatureChart />
+          <Statistics />
         </div>
         <Info />
       </div>

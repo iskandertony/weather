@@ -5,11 +5,10 @@ import "./style.scss";
 const Statistics = () => {
   return (
     <div className="statistics">
-        <div className="flex">
-      <Icon name="time" />
-      <div className="title">24-hour forecast</div>
-        </div>
-        {/*<TemperatureChart />*/}
+      <div className="flex">
+        <Icon name="time" />
+        <div className="title">24-hour forecast</div>
+      </div>
     </div>
   );
 };

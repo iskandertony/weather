@@ -10,11 +10,19 @@ class WeatherStoreWeek {
   error = null;
   selectedDate = null;
   city = null;
+  favoriteCities = [];
 
   constructor() {
     makeAutoObservable(this);
+    this.loadFavoriteCities();
   }
 
+  loadFavoriteCities() {
+    const storedFavorites = localStorage.getItem('favoriteCities');
+    if (storedFavorites) {
+      this.favoriteCities = JSON.parse(storedFavorites);
+    }
+  }
   setSelectedDate(date) {
     this.selectedDate = date;
   }
@@ -37,6 +45,29 @@ class WeatherStoreWeek {
       return dateFromItem === moment(this.selectedDate).format(DATE);
     });
   }
+
+  async selectFavoriteCity(cityName) {
+    await this.fetchWeatherDataByCityName(cityName);
+  }
+  saveFavoriteCities() {
+    localStorage.setItem('favoriteCities', JSON.stringify(this.favoriteCities));
+  }
+
+  addCityToFavorites(cityName) {
+    if (!this.favoriteCities.includes(cityName)) {
+      this.favoriteCities.push(cityName);
+      this.saveFavoriteCities();
+    }
+  }
+
+  removeCityFromFavorites(cityName) {
+    this.favoriteCities = this.favoriteCities.filter(city => city !== cityName);
+    this.saveFavoriteCities();
+  }
+  isCityFavorite(cityName) {
+    return this.favoriteCities.includes(cityName);
+  }
+
 
   fetchWeatherDataWeek = async (lat, lon) => {
     this.isLoading = true;

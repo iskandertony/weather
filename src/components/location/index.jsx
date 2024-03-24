@@ -1,20 +1,46 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { observer } from "mobx-react";
-import {Modal, Input, Button} from "antd";
+import { StarOutlined, StarFilled, HeartOutlined } from "@ant-design/icons";
 import Icon from "../icon";
 import { weatherStoreWeek } from "../../store/weather-week";
 import WeatherIconSingle from "../icon-weather-single";
+import CityModal from "../search-modal";
+import FavoritesModal from "../favorites-modal";
 import "./style.scss";
 
 const Location = observer(() => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [cityName, setCityName] = useState("");
+  const [isFavoritesModalVisible, setIsFavoritesModalVisible] = useState(false);
+  const [geoPermission, setGeoPermission] = useState(null);
+
   const {
     selectedWeatherDetails,
     selectedDate,
+    favoriteCities,
     fetchWeatherDataByCityName,
     city,
   } = weatherStoreWeek;
+
+  useEffect(() => {
+    // Запрашиваем геолокацию пользователя
+    navigator.geolocation.getCurrentPosition(handleSuccess, handleError, {
+      timeout: 10000, // Опциональный параметр, например, таймаут 10 секунд
+    });
+  }, []);
+
+
+  const handleSuccess = (position) => {
+    setGeoPermission(true);
+    // Логика для использования позиции пользователя
+    // Например, загрузка погодных данных для местоположения пользователя
+  };
+
+  const handleError = (error) => {
+    // Не зависимо от причины ошибки, показываем модальное окно, если не удалось получить геолокацию
+    setGeoPermission(false); // Помечаем, что разрешение на геолокацию не было предоставлено
+    showModal(); // Это функция для отображения модального окна поиска
+  };
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -28,29 +54,51 @@ const Location = observer(() => {
     }
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const showFavoritesModal = () => {
+    setIsFavoritesModalVisible(true);
   };
 
-  const handleCityNameChange = (e) => {
-    setCityName(e.target.value);
+  const handleCitySelect = async (cityName) => {
+    await weatherStoreWeek.selectFavoriteCity(cityName);
+    setIsFavoritesModalVisible(false);
   };
-  console.log("city", city?.name)
 
   return (
     <div className="location">
       <div className="content">
-        <div className="flex gap-10 alignC nav" onClick={showModal}>
-          <Icon name="location" />
-          <div className="name">{city?.name || "Enter City"}</div>
-          <Icon name="vector" className="vector" />
+        <div className="flex gap-10 alignC">
+          <div className="flex gap-10 alignC nav" onClick={showModal}>
+            <Icon name="location" />
+            <div className="name">{city?.name || "Enter City"}</div>
+            <Icon name="vector" className="vector" />
+          </div>
+          <div className="flex gap-5 alignC">
+            {weatherStoreWeek.isCityFavorite(city?.name) ? (
+              <StarFilled
+                style={{ color: "white" }}
+                onClick={() =>
+                  weatherStoreWeek.removeCityFromFavorites(city.name)
+                }
+              />
+            ) : (
+              <StarOutlined
+                style={{ color: "white" }}
+                onClick={() => weatherStoreWeek.addCityToFavorites(city.name)}
+              />
+            )}
+
+            <HeartOutlined
+              style={{ color: "white" }}
+              onClick={showFavoritesModal}
+            />
+          </div>
         </div>
         <div className="cloud">
           {selectedWeatherDetails
             ? selectedWeatherDetails.weather[0].description
-            : "Cloudy"}
+            : "No data"}
         </div>
-        <WeatherIconSingle className="mobile"  />
+        <WeatherIconSingle className="mobile" />
       </div>
 
       <div>
@@ -71,32 +119,23 @@ const Location = observer(() => {
         </div>
       </div>
 
-      <Modal
-        title="Enter City Name"
-        open={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            Cancel
-          </Button>,
-          <Button
-              key="submit"
-              type="primary"
-              onClick={handleOk}
-              disabled={!cityName.trim()} // Делаем кнопку неактивной, если имя города пустое
-          >
-            OK
-          </Button>,
-        ]}
-      >
-        <Input
-          placeholder="City name"
-          onChange={handleCityNameChange}
-          value={cityName}
-          onPressEnter={handleOk}
-        />
-      </Modal>
+      <CityModal
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        cityName={cityName}
+        setCityName={setCityName}
+        handleOk={handleOk}
+      />
+
+      <FavoritesModal
+        isFavoritesModalVisible={isFavoritesModalVisible}
+        setIsFavoritesModalVisible={setIsFavoritesModalVisible}
+        favoriteCities={favoriteCities}
+        handleCitySelect={handleCitySelect}
+        removeCityFromFavorites={weatherStoreWeek.removeCityFromFavorites.bind(
+          weatherStoreWeek,
+        )}
+      />
     </div>
   );
 });
