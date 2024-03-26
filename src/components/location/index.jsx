@@ -10,49 +10,33 @@ import "./style.scss";
 
 const Location = observer(() => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [cityName, setCityName] = useState("");
   const [isFavoritesModalVisible, setIsFavoritesModalVisible] = useState(false);
-  const [geoPermission, setGeoPermission] = useState(null);
 
   const {
     selectedWeatherDetails,
     selectedDate,
     favoriteCities,
-    fetchWeatherDataByCityName,
     city,
   } = weatherStoreWeek;
 
   useEffect(() => {
-    // Запрашиваем геолокацию пользователя
     navigator.geolocation.getCurrentPosition(handleSuccess, handleError, {
-      timeout: 10000, // Опциональный параметр, например, таймаут 10 секунд
+      timeout: 10000,
     });
   }, []);
 
-
   const handleSuccess = (position) => {
-    setGeoPermission(true);
-    // Логика для использования позиции пользователя
-    // Например, загрузка погодных данных для местоположения пользователя
+    console.log("geolocation true", position)
   };
 
   const handleError = (error) => {
-    // Не зависимо от причины ошибки, показываем модальное окно, если не удалось получить геолокацию
-    setGeoPermission(false); // Помечаем, что разрешение на геолокацию не было предоставлено
-    showModal(); // Это функция для отображения модального окна поиска
+    console.log("geolocation false", error)
+    showModal();
   };
   const showModal = () => {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    const trimmedCityName = cityName.trim();
-    if (trimmedCityName) {
-      fetchWeatherDataByCityName(trimmedCityName);
-      setIsModalVisible(false);
-      setCityName("");
-    }
-  };
 
   const showFavoritesModal = () => {
     setIsFavoritesModalVisible(true);
@@ -122,9 +106,6 @@ const Location = observer(() => {
       <CityModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
-        cityName={cityName}
-        setCityName={setCityName}
-        handleOk={handleOk}
       />
 
       <FavoritesModal

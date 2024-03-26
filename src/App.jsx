@@ -4,6 +4,7 @@ import Activity from "./components/activities";
 import Info from "./components/info";
 import WeatherIconSingle from "./components/icon-weather-single";
 import Statistics from "./components/statistics";
+import React from "react";
 
 function App() {
   return (

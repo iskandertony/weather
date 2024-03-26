@@ -10,7 +10,7 @@ import { TIME_GMT } from "../../constants/dateTimeFormat";
 import "./style.scss";
 
 const Info = observer(() => {
-  const time = weatherStoreWeek.selectedDayTime || moment().utc().format(TIME_GMT);
+  const time = moment().utc().format(TIME_GMT);
 
   useEffect(() => {
     if (!navigator.geolocation) return;

@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Icon from "../icon";
+import CityModal from "../search-modal";
 import "./style.scss";
 
-const   Menu = () => {
+const Menu = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
     return (
         <div className="manu">
             <Icon name="avatar" />
@@ -16,7 +21,7 @@ const   Menu = () => {
                     <Icon name="explore" />
                     <div className="text">explore</div>
                 </div>
-                <div className="flex flex-column alignC nav">
+                <div className="flex flex-column alignC nav" onClick={showModal}>
                     <Icon name="big_location" />
                     <div className="text">cities</div>
                 </div>
@@ -25,6 +30,11 @@ const   Menu = () => {
                     <div className="text">settings</div>
                 </div>
             </div>
+
+            <CityModal
+                isModalVisible={isModalVisible}
+                setIsModalVisible={setIsModalVisible}
+            />
         </div>
     );
 };

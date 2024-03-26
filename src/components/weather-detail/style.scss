@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-
+  //background-image: url("/assets/img/background.png");
+  //background-repeat: no-repeat;
+  //background-size: cover; /* или 100% 100%, в зависимости от того, как вы хотите масштабировать изображение */
+  //background-position: center; /* Центрирует изображение */
   @media (max-width: 430px) {
     display: none;
   }

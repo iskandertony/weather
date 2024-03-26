@@ -5,13 +5,15 @@
   padding: 16px;
   background: #DEAB4D;
   border-radius: 40px;
-
+  background-image: url("/assets/img/background.png");
+  background-position: bottom;
   @media (max-width: 430px) {
     padding: 0;
     background: unset;
     align-items: center;
     border-radius: unset;
   }
+
 
   .time {
     font-family: "Inter", sans-serif;

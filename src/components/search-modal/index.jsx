@@ -1,7 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {observer} from "mobx-react";
 import { Modal, Input, Button } from "antd";
+import {weatherStoreWeek} from "../../store/weather-week";
 
-const CityModal = ({ isModalVisible, setIsModalVisible, cityName, setCityName, handleOk }) => {
+const CityModal = observer(({ isModalVisible, setIsModalVisible }) => {
+    const [cityName, setCityName] = useState("");
+
+    const {
+        fetchWeatherDataByCityName,
+    } = weatherStoreWeek;
+
+    const handleOk = () => {
+        const trimmedCityName = cityName.trim();
+        if (trimmedCityName) {
+            fetchWeatherDataByCityName(trimmedCityName);
+            setIsModalVisible(false);
+            setCityName("");
+        }
+    };
     const handleCancel = () => {
         setIsModalVisible(false);
     };
@@ -38,6 +54,6 @@ const CityModal = ({ isModalVisible, setIsModalVisible, cityName, setCityName, h
             />
         </Modal>
     );
-};
+});
 
 export default CityModal;
